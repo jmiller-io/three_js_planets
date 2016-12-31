@@ -10,22 +10,22 @@ scene.add( light )
   var light = new THREE.DirectionalLight( 0xcccccc, 1 )
   light.position.set(5,5,5)
   scene.add( light )
-  light.castShadow  = true
-  light.shadowCameraNear  = 0.01
-  light.shadowCameraFar = 15
-  light.shadowCameraFov = 45
+  // light.castShadow  = true
+  // light.shadowCameraNear  = 0.01
+  // light.shadowCameraFar = 15
+  // light.shadowCameraFov = 45
 
-  light.shadowCameraLeft  = -1
-  light.shadowCameraRight =  1
-  light.shadowCameraTop =  1
-  light.shadowCameraBottom= -1
-  // light.shadowCameraVisible  = true
+  // light.shadowCameraLeft  = -1
+  // light.shadowCameraRight =  1
+  // light.shadowCameraTop =  1
+  // light.shadowCameraBottom= -1
+  // // light.shadowCameraVisible  = true
 
-  light.shadowBias  = 0.001
-  light.shadowDarkness  = 0.2
+  // light.shadowBias  = 0.001
+  // light.shadowDarkness  = 0.2
 
-  light.shadowMapWidth  = 1024*2
-  light.shadowMapHeight = 1024*2
+  // light.shadowMapWidth  = 1024*2
+  // light.shadowMapHeight = 1024*2
 
 var bmap =  THREE.ImageUtils.loadTexture('images/earthmap1k.jpg', {}, function(){});
 var geometry = new THREE.SphereGeometry( 0.5, 32, 32 );
@@ -44,8 +44,32 @@ camera.position.z = 1;
 function render() {
   requestAnimationFrame (render);
   renderer.render( scene, camera);
-  console.log('rendering')
-  earthMesh.rotation.y += .003;
+  // earthMesh.rotation.y += .003;
 };
 
 render();
+
+
+
+
+// move camera position
+document.onkeydown = checkKey;
+
+// check key function
+function checkKey(event) {
+  e = event;
+  console.log(e)
+  if (e.code === "ArrowLeft") {
+    console.log('left')
+    earthMesh.rotation.y += 0.04
+  } else if (e.code === "ArrowRight") {
+    console.log('right')
+    earthMesh.rotation.y -= 0.04
+  } else if (e.code === "ArrowUp") {
+    console.log('Up')
+    earthMesh.rotation.x += 0.04
+  } else if (e.code === "ArrowDown") {
+    console.log('down')
+    earthMesh.rotation.x -= 0.04
+  }
+}
