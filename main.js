@@ -7,7 +7,7 @@ document.body.appendChild(renderer.domElement);
 var light = new THREE.AmbientLight( 0x888888, 1.5)
 scene.add( light )
 
-  var light = new THREE.DirectionalLight( 0xcccccc, .2 )
+  var light = new THREE.DirectionalLight( 0xcccccc, .3)
   light.position.set(5,5,5)
   scene.add( light )
 
@@ -19,25 +19,22 @@ var material = new THREE.MeshPhongMaterial({
   bumpMap: bmap,
   bumpScale: 0.05,
   specularMap: THREE.ImageUtils.loadTexture('images/earthspec1k.jpg'),
-  specular: '#D3D3D3'
+  specular: new THREE.Color('grey')
 });
 var earthMesh = new THREE.Mesh( geometry, material );
 scene.add( earthMesh );
 
 
 // Create the clouds
-canvasCloud = THREE.ImageUtils.loadTexture('images/earthcloudmap.jpg', 'images/earthcloudmaptrans.jpg' )
-var geometry = new THREE.SphereGeometry(0.51, 32, 32)
-var material = new THREE.MeshPhongMaterial ({
-  map: canvasCloud,
-  side: THREE.DoubleSide,
-  opacity: 0.8,
-  transparent: true,
-  depthWrite: false,
-})
+// var geometry = new THREE.SphereGeometry(0.503, 32, 32)
+// var material = new THREE.MeshPhongMaterial ({
+//   color: 0xffffff,
+//   map: THREE.ImageUtils.loadTexture( 'images/earthcloudmaptrans.jpg' ),
+//   transparent: true,
+// })
+// var clouds = new THREE.Mesh( geometry, material);
+// earthMesh.add( clouds );
 
-// var cloudMesh = new THREE.Mesh(geometry, material)
-// earthMesh.add(cloudMesh)
 
 // sets distance of camera from planet
 camera.position.z = 1;
