@@ -4,29 +4,14 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize (window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement);
 
-var light = new THREE.AmbientLight( 0x888888 )
+var light = new THREE.AmbientLight( 0x888888, 1.5)
 scene.add( light )
 
-  var light = new THREE.DirectionalLight( 0xcccccc, 1 )
+  var light = new THREE.DirectionalLight( 0xcccccc, .2 )
   light.position.set(5,5,5)
   scene.add( light )
-  // light.castShadow  = true
-  // light.shadowCameraNear  = 0.01
-  // light.shadowCameraFar = 15
-  // light.shadowCameraFov = 45
 
-  // light.shadowCameraLeft  = -1
-  // light.shadowCameraRight =  1
-  // light.shadowCameraTop =  1
-  // light.shadowCameraBottom= -1
-  // // light.shadowCameraVisible  = true
-
-  // light.shadowBias  = 0.001
-  // light.shadowDarkness  = 0.2
-
-  // light.shadowMapWidth  = 1024*2
-  // light.shadowMapHeight = 1024*2
-
+// Planet Earth
 var bmap =  THREE.ImageUtils.loadTexture('images/earthmap1k.jpg', {}, function(){});
 var geometry = new THREE.SphereGeometry( 0.5, 32, 32 );
 var material = new THREE.MeshPhongMaterial({
@@ -39,6 +24,22 @@ var material = new THREE.MeshPhongMaterial({
 var earthMesh = new THREE.Mesh( geometry, material );
 scene.add( earthMesh );
 
+
+// Create the clouds
+canvasCloud = THREE.ImageUtils.loadTexture('images/earthcloudmap.jpg', 'images/earthcloudmaptrans.jpg' )
+var geometry = new THREE.SphereGeometry(0.51, 32, 32)
+var material = new THREE.MeshPhongMaterial ({
+  map: canvasCloud,
+  side: THREE.DoubleSide,
+  opacity: 0.8,
+  transparent: true,
+  depthWrite: false,
+})
+
+// var cloudMesh = new THREE.Mesh(geometry, material)
+// earthMesh.add(cloudMesh)
+
+// sets distance of camera from planet
 camera.position.z = 1;
 
 function render() {
@@ -61,15 +62,15 @@ function checkKey(event) {
   console.log(e)
   if (e.code === "ArrowLeft") {
     console.log('left')
-    earthMesh.rotation.y += 0.04
+    earthMesh.rotation.y += 1/32
   } else if (e.code === "ArrowRight") {
     console.log('right')
-    earthMesh.rotation.y -= 0.04
+    earthMesh.rotation.y -= 1/32
   } else if (e.code === "ArrowUp") {
     console.log('Up')
-    earthMesh.rotation.x += 0.04
+    earthMesh.rotation.x += 1/32
   } else if (e.code === "ArrowDown") {
     console.log('down')
-    earthMesh.rotation.x -= 0.04
+    earthMesh.rotation.x -= 1/32
   }
 }
